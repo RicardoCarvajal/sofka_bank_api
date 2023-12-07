@@ -6,7 +6,7 @@ RUN mvn package
 
 FROM eclipse-temurin:17-jdk-jammy
 
-COPY --from=build /app/target/Cuenta_Bancaria_Web-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY --from=build /app/target/sofka_bank_app-0.0.1.jar /app/app.jar
 WORKDIR /app
 
 CMD [ "java", "-jar", "/app/app.jar" ]

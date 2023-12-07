@@ -14,12 +14,10 @@ services:
       - rabbitmq  
   
   mongodb:
-    image: mongo:latest
+    image: mongo:7.0.4
     container_name: sofkabankmongo           
     ports:
       - 27017:27017
-    volumes:
-      - ./data:/data/db
 
   rabbitmq:
     image: rabbitmq:3.12-management

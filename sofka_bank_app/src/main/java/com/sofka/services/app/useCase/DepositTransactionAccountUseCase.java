@@ -3,6 +3,7 @@ package com.sofka.services.app.useCase;
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.sofka.services.app.config.RabbitMqSender;
 import com.sofka.services.app.dto.AccountDto;
@@ -14,6 +15,7 @@ import com.sofka.services.app.repository.ITransactionRepository;
 
 import reactor.core.publisher.Mono;
 
+@Service
 public class DepositTransactionAccountUseCase implements IDepositTransaction {
 
 	@Value("${app.deposito.account}")
@@ -25,8 +27,8 @@ public class DepositTransactionAccountUseCase implements IDepositTransaction {
 
 	private final RabbitMqSender sender;
 
-	public DepositTransactionAccountUseCase(ITransactionRepository transactionRepository, IAccountRepository accountReporitory,
-			RabbitMqSender sender) {
+	public DepositTransactionAccountUseCase(ITransactionRepository transactionRepository,
+			IAccountRepository accountReporitory, RabbitMqSender sender) {
 		this.transactionRepository = transactionRepository;
 		this.accountReporitory = accountReporitory;
 		this.sender = sender;

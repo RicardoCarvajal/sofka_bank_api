@@ -8,7 +8,7 @@
 		<relativePath />
 	</parent>
 	<groupId>Sofka</groupId>
-	<artifactId>Cuenta_Bancaria_Sofka</artifactId>
+	<artifactId>sofka_bank_app</artifactId>
 	<version>0.0.1</version>
 	<name>Cuenta_Bancaria_Sofka</name>
 	<description>Aplicacion de cuenta bancaria de softka</description>
