@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  sofkabankapp:
+    env_file:
+      - app.env
+    build: .                                                                        
+    image: sofkabankapp:1.0
+    container_name: sofkabankapp
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongodb
+      - rabbitmq  
+  
+  mongodb:
+    image: mongo:latest
+    container_name: sofkabankmongo           
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: sofkabankrabbit
+    ports:
+      - 5672:5672
+      - 15672:15672
+              
