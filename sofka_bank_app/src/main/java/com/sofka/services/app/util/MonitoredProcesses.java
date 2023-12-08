@@ -28,11 +28,12 @@ public class MonitoredProcesses {
 		method = Thread.currentThread().getStackTrace()[2].getMethodName();
 		clazz = Thread.currentThread().getStackTrace()[2].getClassName();
 
-		objectToQueue.put("Tipo", "INFO");
-		objectToQueue.put("Clase", clazz);
-		objectToQueue.put("Metodo", method);
+		objectToQueue.put("tipo", "INFO");
+		objectToQueue.put("clase", clazz);
+		objectToQueue.put("metodo", method);
 		objectToQueue.put("linea", line);
 		objectToQueue.put("mensaje", message);
+		objectToQueue.put("nanoSegundos", System.nanoTime());
 
 		rabbitMqSender.senderLogs(objectToQueue);
 
@@ -46,11 +47,12 @@ public class MonitoredProcesses {
 		method = Thread.currentThread().getStackTrace()[2].getMethodName();
 		clazz = Thread.currentThread().getStackTrace()[2].getClassName();
 
-		objectToQueue.put("Tipo", "INFO");
-		objectToQueue.put("Clase", clazz);
-		objectToQueue.put("Metodo", method);
+		objectToQueue.put("tipo", "INFO");
+		objectToQueue.put("clase", clazz);
+		objectToQueue.put("metodo", method);
 		objectToQueue.put("linea", line);
 		objectToQueue.put("mensaje", message);
+		objectToQueue.put("nanoSegundos", System.nanoTime());
 		if (data != null)
 			objectToQueue.put("datos", data);
 
@@ -66,11 +68,12 @@ public class MonitoredProcesses {
 		method = Thread.currentThread().getStackTrace()[2].getMethodName();
 		clazz = Thread.currentThread().getStackTrace()[2].getClassName();
 
-		objectToQueue.put("Tipo", "ERROR");
-		objectToQueue.put("Clase", clazz);
-		objectToQueue.put("Metodo", method);
+		objectToQueue.put("tipo", "ERROR");
+		objectToQueue.put("clase", clazz);
+		objectToQueue.put("metodo", method);
 		objectToQueue.put("linea", line);
 		objectToQueue.put("mensaje", message);
+		objectToQueue.put("nanoSegundos", System.nanoTime());
 
 		rabbitMqSender.senderLogs(objectToQueue);
 
@@ -84,11 +87,13 @@ public class MonitoredProcesses {
 		method = Thread.currentThread().getStackTrace()[2].getMethodName();
 		clazz = Thread.currentThread().getStackTrace()[2].getClassName();
 
-		objectToQueue.put("Tipo", "ERROR");
-		objectToQueue.put("Clase", clazz);
-		objectToQueue.put("Metodo", method);
+		objectToQueue.put("tipo", "ERROR");
+		objectToQueue.put("clase", clazz);
+		objectToQueue.put("metodo", method);
 		objectToQueue.put("linea", line);
 		objectToQueue.put("mensaje", message);
+		objectToQueue.put("nanoSegundos", System.nanoTime());
+
 		if (data != null)
 			objectToQueue.put("datos", data);
 

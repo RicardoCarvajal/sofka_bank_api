@@ -14,6 +14,7 @@
 	<description>Aplicacion de cuenta bancaria de softka</description>
 	<properties>
 		<java.version>17</java.version>
+        <sofkakonf.dir>../../kube_conf_sofka/</sofkakonf.dir>
 	</properties>
 
 	<dependencies>
@@ -80,6 +81,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${sofkakonf.dir}</outputDirectory>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
