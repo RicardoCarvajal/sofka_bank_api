@@ -5,11 +5,11 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.sofka.services.app.config.RabbitMqSender;
 import com.sofka.services.app.dto.AccountDto;
 import com.sofka.services.app.dto.CustomerDto;
 import com.sofka.services.app.dto.DepositDto;
 import com.sofka.services.app.entity.Transaccion;
+import com.sofka.services.app.queue.RabbitMqSender;
 import com.sofka.services.app.repository.IAccountRepository;
 import com.sofka.services.app.repository.ITransactionRepository;
 

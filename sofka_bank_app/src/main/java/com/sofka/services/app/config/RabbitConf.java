@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -21,11 +23,15 @@ import com.rabbitmq.client.ConnectionFactory;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 import reactor.rabbitmq.RabbitFlux;
+import reactor.rabbitmq.Receiver;
+import reactor.rabbitmq.ReceiverOptions;
 import reactor.rabbitmq.Sender;
 import reactor.rabbitmq.SenderOptions;
 
 @Configuration
 public class RabbitConf {
+
+	Logger logger = LoggerFactory.getLogger(RabbitConf.class);
 
 	public static final String QUEUE_ERROR = "sofkaBank-errors";
 	public static final String QUEUE_LOGS = "sofkaBank-logs";
@@ -41,7 +47,7 @@ public class RabbitConf {
 
 	@Bean
 	public AmqpAdmin amqpAdmin() {
-		System.out.println(uri_name);
+		logger.info("Conexion RABBITMQ SOFKABANK: " + uri_name);
 
 		CachingConnectionFactory connectionFactory = new CachingConnectionFactory(URI.create(uri_name));
 		var amqpAdmin = new RabbitAdmin(connectionFactory);
@@ -67,7 +73,7 @@ public class RabbitConf {
 	@Bean
 	public Mono<Connection> connMono() throws KeyManagementException, NoSuchAlgorithmException, URISyntaxException {
 		ConnectionFactory connectionFactory = new ConnectionFactory();
-		System.out.println(uri_name);
+		logger.info("Conexion RABBITMQ SOFKABANK: " + uri_name);
 		connectionFactory.setUri(uri_name);
 		connectionFactory.useNio();
 		return Mono.fromCallable(() -> connectionFactory.newConnection());
@@ -81,6 +87,16 @@ public class RabbitConf {
 	@Bean
 	public Sender sender(SenderOptions senderOptions) {
 		return RabbitFlux.createSender(senderOptions);
+	}
+
+	@Bean
+	public ReceiverOptions receiverOptions(Mono<Connection> connectionMono) {
+		return new ReceiverOptions().connectionMono(connectionMono);
+	}
+
+	@Bean
+	public Receiver receiver(ReceiverOptions receiverOptions) {
+		return RabbitFlux.createReceiver(receiverOptions);
 	}
 
 }
