@@ -30,7 +30,7 @@ public class RabbitMqSender {
 	}
 
 	public void senderLogs(Object object) {
-		log.info("Enviando data a cola de error " + gson.toJson(object));
+		log.info("Enviando data a cola de logs " + gson.toJson(object));
 		sender.send(Mono.just(new OutboundMessage(RabbitConf.EXCHANGE_NAME_2, RabbitConf.ROUTING_KEY_NAME_2,
 				gson.toJson(object).getBytes()))).subscribe(System.out::println);
 	}
