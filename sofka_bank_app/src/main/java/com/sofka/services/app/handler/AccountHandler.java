@@ -11,6 +11,8 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.sofka.services.app.dto.AccountDto;
+import com.sofka.services.app.entity.Cliente;
+import com.sofka.services.app.entity.Cuenta;
 import com.sofka.services.app.useCase.CreateAccountUseCase;
 import com.sofka.services.app.useCase.GetAccountsUseCase;
 import com.sofka.services.app.util.MonitoredProcesses;
@@ -59,12 +61,16 @@ public class AccountHandler {
 							return ServerResponse.badRequest().bodyValue(list);
 						});
 			} else {
-				return createAccountUseCase.create(a).flatMap(adb -> {
-					monitoredProcesses.info("Cuenta bancaria creada", adb);
+				return createAccountUseCase
+						.create(Cuenta.createCuenta().id(a.getId()).saldoGlobal(a.getGlobalBalance()).cliente(Cliente
+								.createCliente().id(a.getCustomer().getId()).nombre(a.getCustomer().getName()).build())
+								.build())
+						.flatMap(adb -> {
+							monitoredProcesses.info("Cuenta bancaria creada", adb);
 
-					return ServerResponse.created(URI.create("/api/v2/productos/"))
-							.contentType(MediaType.APPLICATION_JSON).bodyValue(adb);
-				});
+							return ServerResponse.created(URI.create("/api/v2/productos/"))
+									.contentType(MediaType.APPLICATION_JSON).bodyValue(adb);
+						});
 			}
 		});
 

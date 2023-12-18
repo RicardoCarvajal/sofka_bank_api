@@ -1,13 +1,16 @@
 package com.sofka.services.app.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("cuentas")
-public class Cuenta {
+public class Cuenta implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	private String id;
 	private BigDecimal saldoGlobal;
@@ -68,6 +71,24 @@ public class Cuenta {
 
 	public Cuenta build() {
 		return this;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cliente, id, saldoGlobal);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cuenta other = (Cuenta) obj;
+		return Objects.equals(cliente, other.cliente) && Objects.equals(id, other.id)
+				&& Objects.equals(saldoGlobal, other.saldoGlobal);
 	}
 
 }

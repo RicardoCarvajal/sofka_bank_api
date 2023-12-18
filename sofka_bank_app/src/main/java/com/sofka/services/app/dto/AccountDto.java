@@ -1,6 +1,7 @@
 package com.sofka.services.app.dto;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -70,6 +71,24 @@ public class AccountDto {
 
 	public AccountDto build() {
 		return this;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(customer, globalBalance, id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AccountDto other = (AccountDto) obj;
+		return Objects.equals(customer, other.customer) && Objects.equals(globalBalance, other.globalBalance)
+				&& Objects.equals(id, other.id);
 	}
 
 }
